@@ -14,7 +14,7 @@ public final class IvonaSpeechCapability extends AgentBuilder {
 	
 	/** Creates a new speech capability that can be used by agents. For a PlanToAgentInterface planInt you can use 
 	 * planInt.getContext(IvonaContext.class).speak("Hello world.") for instance to speak. By default the voice is 
-	 * set to English. 
+	 * set to English.
 	 *  @param pathToBuffer Path to the folder where the utterances are buffered. e.g. /home/ivonabuffer/ 
 	 *  @param pathToCredentials Path to the Ivona credentials file. */
 	public IvonaSpeechCapability(final String pathToBuffer, final String pathToCredentials){
