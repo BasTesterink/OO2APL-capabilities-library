@@ -10,11 +10,11 @@ import java.util.List;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-
-import agent.webcapability.triggers.HTTPTrigger;
+ 
 import oo2apl.agent.Context;
 import oo2apl.agent.ExternalProcessToAgentInterface;
 import oo2apl.agent.Trigger;
+import webInterfaceCapability.triggers.HTTPTrigger;
 /**
  * The web server context maintains the server of the agent. Currently only supports a single server.
  * 
