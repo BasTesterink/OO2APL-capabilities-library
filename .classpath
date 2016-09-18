@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="ivonaSpeechCapabilityDependencies/jmf.jar"/>
 	<classpathentry kind="lib" path="ivonaSpeechCapabilityDependencies/mp3plugin.jar"/>
 	<classpathentry kind="lib" path="tuPrologDependencies/tuprolog.jar"/>
+	<classpathentry kind="lib" path="JSONDependencies/json.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
