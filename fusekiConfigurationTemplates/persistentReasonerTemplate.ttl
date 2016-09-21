@@ -1,0 +1,34 @@
+@prefix :      <http://base/#> .
+@prefix tdb:   <http://jena.hpl.hp.com/2008/tdb#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ja:    <http://jena.hpl.hp.com/2005/11/Assembler#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix fuseki: <http://jena.apache.org/fuseki#> .
+
+:service_tdb_all  a                   fuseki:Service ;
+        rdfs:label                    "TDB DATASETNAME" ;
+        fuseki:dataset                <#tdb_dataset_readwrite> ;
+        fuseki:name                   "DATASETNAME" ;
+        fuseki:serviceQuery           "query" , "sparql" ;
+        fuseki:serviceReadGraphStore  "get" ;
+        fuseki:serviceReadWriteGraphStore
+                "data" ;
+        fuseki:serviceUpdate          "update" ;
+        fuseki:serviceUpload          "upload" .
+ 
+
+tdb:GraphTDB    rdfs:subClassOf  ja:Model .
+
+<#tdb_dataset_readwrite> rdf:type ja:RDFDataset ;
+ ja:defaultGraph <#model2>; 
+ .         
+
+<#model2> a ja:InfModel;
+ ja:baseModel <#tdbGraph>;
+ ja:reasoner
+ [ ja:reasonerURL 
+ <http://jena.hpl.hp.com/2003/OWLFBRuleReasoner>];
+ .
+<#tdbGraph> rdf:type tdb:GraphTDB;
+ tdb:location "FUSEKIDIRECTORYDATASETNAME";
+ .
