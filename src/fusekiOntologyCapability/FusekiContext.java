@@ -117,7 +117,7 @@ public final class FusekiContext implements Context {
 	
 	/** Creates a new dataset. Overwrite an existing dataset. */
 	public final void addDataSet(final String name, final boolean isPersistent, final String prefixesToUseForQuery) throws IOException{ 
-		HttpURLConnection connection = postData(
+		HttpURLConnection connection = postData("POST",
 				"http://localhost:"+this.port+"/$/datasets/",
 				"application/x-www-form-urlencoded; charset=UTF-8",
 				"dbName="+name+"&dbType="+(isPersistent?"tdb":"mem") );
@@ -152,7 +152,7 @@ public final class FusekiContext implements Context {
 	/** Submit a query to Fuseki and return the response as a JSON object. */
 	public final JSONObject query(final String dataset, final String query) throws IOException{
 		String queryPrefixes = this.prefixes.get(dataset);
-		HttpURLConnection connection = postData(
+		HttpURLConnection connection = postData("POST",
 				"http://localhost:"+this.port+"/"+dataset+"/query", 
 				"application/sparql-query", 
 				queryPrefixes == null ? query : (queryPrefixes + query) );
@@ -168,11 +168,26 @@ public final class FusekiContext implements Context {
 	/** Execute a SPARQL update query. */
 	public final void update(final String dataset, final String update) throws IOException{
 		String queryPrefixes = this.prefixes.get(dataset);
-		HttpURLConnection connection = postData(
+		HttpURLConnection connection = postData("POST",
 				"http://localhost:"+this.port+"/"+dataset+"/update", 
 				"application/sparql-update", 
 				queryPrefixes == null ? update : (queryPrefixes + update) );
 		connection.disconnect();
+	}
+	
+	/** Load an ontology in the dataset.  */
+	public final void loadOntology(final String dataset, final String pathToOntology) throws IOException{ 
+		File ontologyFile = new File(pathToOntology);
+		StringBuffer content = new StringBuffer();
+		BufferedReader br = new BufferedReader(new FileReader(ontologyFile));
+		String s = "";
+		while((s = br.readLine()) != null) content.append(s).append("\r\n"); 
+		HttpURLConnection connection = postData("PUT",
+				"http://localhost:"+this.port+"/"+dataset+"/data", 
+				"text/turtle", 
+				content.toString()); 
+		connection.disconnect();
+		br.close(); 
 	}
 	
 	/** Execute a SPARQL update query that consists of one added triple.  */
@@ -199,14 +214,15 @@ public final class FusekiContext implements Context {
 		writer.write(template);
 		writer.flush();
 		writer.close();  
+		br.close();
 		startServer();
 	}
 	
 	// Aux method to create a POST connection. Does not disconnect the connection. You can still use a BufferedReader for instance 
 	// to read the response. 
-	private final HttpURLConnection postData(final String urlString, final String contentType, final String dataString) throws IOException{ 
+	private final HttpURLConnection postData(final String method, final String urlString, final String contentType, final String dataString) throws IOException{ 
 		HttpURLConnection connection = (HttpURLConnection) (new URL(urlString)).openConnection();
-		connection.setRequestMethod("POST"); 
+		connection.setRequestMethod(method); 
 		connection.setDoOutput(true);
 		connection.setRequestProperty("Content-Type", contentType);
 		byte[] data = dataString.getBytes(StandardCharsets.UTF_8);
