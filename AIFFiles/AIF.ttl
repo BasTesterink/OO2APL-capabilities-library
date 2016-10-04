@@ -1,0 +1,713 @@
+@prefix : <uu:dialoguebuilder/nlpmodule/aif#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <uu:dialoguebuilder/nlpmodule/aif> .
+
+<uu:dialoguebuilder/nlpmodule/aif> rdf:type owl:Ontology .
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#conclusion
+
+:conclusion rdf:type owl:ObjectProperty ;
+            
+            rdfs:subPropertyOf :nodeRelation ;
+            
+            rdfs:domain :S-Node ;
+            
+            rdfs:range :I-Node .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#conflictedElement
+
+:conflictedElement rdf:type owl:ObjectProperty ;
+                   
+                   rdfs:subPropertyOf :nodeRelation ;
+                   
+                   rdfs:domain :S-Node ;
+                   
+                   rdfs:range :Node .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#conflictingElement
+
+:conflictingElement rdf:type owl:ObjectProperty ;
+                    
+                    rdfs:subPropertyOf :nodeRelation ;
+                    
+                    rdfs:domain :S-Node ;
+                    
+                    rdfs:range :I-Node .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#dispreferredElement
+
+:dispreferredElement rdf:type owl:ObjectProperty ;
+                     
+                     rdfs:subPropertyOf :nodeRelation ;
+                     
+                     rdfs:domain :S-Node ;
+                     
+                     rdfs:range :Node .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#formRelation
+
+:formRelation rdf:type owl:ObjectProperty .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#fulfil
+
+:fulfil rdf:type owl:ObjectProperty ;
+        
+        rdfs:domain :Node ;
+        
+        rdfs:range :Form .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#hasConclusionDescription
+
+:hasConclusionDescription rdf:type owl:ObjectProperty ;
+                          
+                          rdfs:subPropertyOf :formRelation ;
+                          
+                          rdfs:domain :Inference-Scheme ;
+                          
+                          rdfs:range :Form .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#hasConflictedElementDescription
+
+:hasConflictedElementDescription rdf:type owl:ObjectProperty ;
+                                 
+                                 rdfs:subPropertyOf :formRelation ;
+                                 
+                                 rdfs:domain :Conflict-Scheme ;
+                                 
+                                 rdfs:range :Form .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#hasConflictingElementDescription
+
+:hasConflictingElementDescription rdf:type owl:ObjectProperty ;
+                                  
+                                  rdfs:subPropertyOf :formRelation ;
+                                  
+                                  rdfs:domain :Conflict-Scheme ;
+                                  
+                                  rdfs:range :Statement-Description .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#hasDispreferredElementDescription
+
+:hasDispreferredElementDescription rdf:type owl:ObjectProperty ;
+                                   
+                                   rdfs:subPropertyOf :formRelation ;
+                                   
+                                   rdfs:domain :Preference-Scheme ;
+                                   
+                                   rdfs:range :Form .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#hasExceptionDescription
+
+:hasExceptionDescription rdf:type owl:ObjectProperty ;
+                         
+                         rdfs:subPropertyOf :formRelation ;
+                         
+                         rdfs:domain :Presumptive-Inference-Scheme ;
+                         
+                         rdfs:range :Statement-Description .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#hasPreferredElementDescription
+
+:hasPreferredElementDescription rdf:type owl:ObjectProperty ;
+                                
+                                rdfs:subPropertyOf :formRelation ;
+                                
+                                rdfs:domain :Preference-Scheme ;
+                                
+                                rdfs:range :Form .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#hasPremiseDescription
+
+:hasPremiseDescription rdf:type owl:ObjectProperty ;
+                       
+                       rdfs:subPropertyOf :formRelation ;
+                       
+                       rdfs:domain :Inference-Scheme ;
+                       
+                       rdfs:range :Statement-Description .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#hasPresumptionDescription
+
+:hasPresumptionDescription rdf:type owl:ObjectProperty ;
+                           
+                           rdfs:subPropertyOf :formRelation ;
+                           
+                           rdfs:domain :Presumptive-Inference-Scheme ;
+                           
+                           rdfs:range :Statement-Description .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#i-fulfil
+
+:i-fulfil rdf:type owl:ObjectProperty ;
+          
+          rdfs:subPropertyOf :fulfil ;
+          
+          rdfs:domain :I-Node ;
+          
+          rdfs:range :Statement-Description .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#nodeRelation
+
+:nodeRelation rdf:type owl:ObjectProperty .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#preferredElement
+
+:preferredElement rdf:type owl:ObjectProperty ;
+                  
+                  rdfs:subPropertyOf :nodeRelation ;
+                  
+                  rdfs:domain :S-Node ;
+                  
+                  rdfs:range :Node .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#premise
+
+:premise rdf:type owl:ObjectProperty ;
+         
+         rdfs:subPropertyOf :nodeRelation ;
+         
+         rdfs:domain :S-Node ;
+         
+         rdfs:range :I-Node .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#s-conflict-node-fulfil
+
+:s-conflict-node-fulfil rdf:type owl:ObjectProperty ;
+                        
+                        rdfs:subPropertyOf :s-fulfil ;
+                        
+                        rdfs:domain :Conflict-Node ;
+                        
+                        rdfs:range :Conflict-Scheme .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#s-fulfil
+
+:s-fulfil rdf:type owl:ObjectProperty ;
+          
+          rdfs:subPropertyOf :fulfil ;
+          
+          rdfs:domain :S-Node ;
+          
+          rdfs:range :Scheme .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#s-inference-node-fulfil
+
+:s-inference-node-fulfil rdf:type owl:ObjectProperty ;
+                         
+                         rdfs:subPropertyOf :s-fulfil ;
+                         
+                         rdfs:domain :Inference-Node ;
+                         
+                         rdfs:range :Inference-Scheme .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#s-preference-node-fulfil
+
+:s-preference-node-fulfil rdf:type owl:ObjectProperty ;
+                          
+                          rdfs:subPropertyOf :s-fulfil ;
+                          
+                          rdfs:domain :Preference-Node ;
+                          
+                          rdfs:range :Preference-Scheme .
+
+
+
+
+
+#################################################################
+#
+#    Data properties
+#
+#################################################################
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#iNodeText
+
+:iNodeText rdf:type owl:DatatypeProperty ;
+           
+           rdfs:domain :I-Node ;
+           
+           rdfs:range xsd:string .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#statementDescriptionText
+
+:statementDescriptionText rdf:type owl:DatatypeProperty ;
+                          
+                          rdfs:domain :Statement-Description ;
+                          
+                          rdfs:range xsd:string .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#Conflict-Node
+
+:Conflict-Node rdf:type owl:Class ;
+               
+               rdfs:subClassOf :S-Node .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#Conflict-Scheme
+
+:Conflict-Scheme rdf:type owl:Class ;
+                 
+                 rdfs:subClassOf :Scheme .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#Deductive-Inference-Scheme
+
+:Deductive-Inference-Scheme rdf:type owl:Class ;
+                            
+                            rdfs:subClassOf :Inference-Scheme .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#Exception-Conflict-Scheme
+
+:Exception-Conflict-Scheme rdf:type owl:Class ;
+                           
+                           rdfs:subClassOf :Conflict-Scheme .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#Form
+
+:Form rdf:type owl:Class .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#I-Node
+
+:I-Node rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Node .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#Inductive-Inference-Scheme
+
+:Inductive-Inference-Scheme rdf:type owl:Class ;
+                            
+                            rdfs:subClassOf :Inference-Scheme .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#Inference-Node
+
+:Inference-Node rdf:type owl:Class ;
+                
+                rdfs:subClassOf :S-Node .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#Inference-Scheme
+
+:Inference-Scheme rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf :Scheme .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#Logical-Conflict-Scheme
+
+:Logical-Conflict-Scheme rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf :Conflict-Scheme .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#Node
+
+:Node rdf:type owl:Class .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#Preference-Node
+
+:Preference-Node rdf:type owl:Class ;
+                 
+                 rdfs:subClassOf :S-Node .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#Preference-Scheme
+
+:Preference-Scheme rdf:type owl:Class ;
+                   
+                   rdfs:subClassOf :Scheme .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#Presumptive-Inference-Scheme
+
+:Presumptive-Inference-Scheme rdf:type owl:Class ;
+                              
+                              rdfs:subClassOf :Inference-Scheme .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#S-Node
+
+:S-Node rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Node .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#Scheme
+
+:Scheme rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Form .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#Statement-Description
+
+:Statement-Description rdf:type owl:Class ;
+                       
+                       rdfs:subClassOf :Form .
+
+
+
+
+
+#################################################################
+#
+#    Individuals
+#
+#################################################################
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#common-knowledge-back-up-description
+
+:common-knowledge-back-up-description rdf:type owl:NamedIndividual ,
+                                               :Statement-Description ;
+                                      
+                                      :statementDescriptionText "Evidence such as poll or appeal to common knowledge supports that A is generally accepted as true." .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#credibility-of-source-description
+
+:credibility-of-source-description rdf:type owl:NamedIndividual ,
+                                            :Statement-Description ;
+                                   
+                                   :statementDescriptionText "E is a credible expert source." .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#expert-knowledge-preffered-over-general-knowledge-scheme
+
+:expert-knowledge-preffered-over-general-knowledge-scheme rdf:type owl:NamedIndividual ,
+                                                                   :Preference-Scheme ;
+                                                          
+                                                          :hasDispreferredElementDescription :popular-opinion-scheme ;
+                                                          
+                                                          :hasPreferredElementDescription :expert-opinion-scheme .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#expert-lack-of-reliability-scheme
+
+:expert-lack-of-reliability-scheme rdf:type owl:NamedIndividual ,
+                                            :Exception-Conflict-Scheme ;
+                                   
+                                   :hasConflictedElementDescription :expert-opinion-scheme ;
+                                   
+                                   :hasConflictingElementDescription :lack-of-reliability-description .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#expert-opinion-scheme
+
+:expert-opinion-scheme rdf:type owl:NamedIndividual ,
+                                :Presumptive-Inference-Scheme ;
+                       
+                       :hasConclusionDescription :knowledge-position-description ;
+                       
+                       :hasExceptionDescription :expertise-inconsistency-description ,
+                                                :lack-of-reliability-description ;
+                       
+                       :hasPremiseDescription :field-of-expertise-description ,
+                                              :knowledge-assertion-description ;
+                       
+                       :hasPresumptionDescription :credibility-of-source-description ,
+                                                  :expertise-back-up-evidence-description .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#expert-statement-description
+
+:expert-statement-description rdf:type owl:NamedIndividual .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#expertise-back-up-evidence-description
+
+:expertise-back-up-evidence-description rdf:type owl:NamedIndividual ,
+                                                 :Statement-Description ;
+                                        
+                                        :statementDescriptionText "E's assertion is backed up by evidence." .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#expertise-inconsistency-description
+
+:expertise-inconsistency-description rdf:type owl:NamedIndividual ,
+                                              :Statement-Description ;
+                                     
+                                     :statementDescriptionText "A is not consistent with other expert assertions." .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#field-of-expertise-description
+
+:field-of-expertise-description rdf:type owl:NamedIndividual ,
+                                         :Statement-Description ;
+                                
+                                :statementDescriptionText "Source E is an expert in subject domain D containing proposition A." .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#general-acceptance-description
+
+:general-acceptance-description rdf:type owl:NamedIndividual ,
+                                         :Statement-Description ;
+                                
+                                :statementDescriptionText "A is generally accepted as true." .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#general-acceptance-doubt-description
+
+:general-acceptance-doubt-description rdf:type owl:NamedIndividual ,
+                                               :Statement-Description ;
+                                      
+                                      :statementDescriptionText "There are good reasons to doubt A is not true even though it is generally accepted." .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#knowledge-assertion-description
+
+:knowledge-assertion-description rdf:type owl:NamedIndividual ,
+                                          :Statement-Description ;
+                                 
+                                 :statementDescriptionText "E asserts that A is true (false)." .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#knowledge-position-description
+
+:knowledge-position-description rdf:type owl:NamedIndividual ,
+                                         :Statement-Description ;
+                                
+                                :statementDescriptionText "A is true (false)." .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#lack-of-reliability-description
+
+:lack-of-reliability-description rdf:type owl:NamedIndividual ,
+                                          :Statement-Description ;
+                                 
+                                 :statementDescriptionText "E is not an honest source." .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#major-premise-description
+
+:major-premise-description rdf:type owl:NamedIndividual ,
+                                    :Statement-Description ;
+                           
+                           :statementDescriptionText "If P then Q." .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#minor-premise-description
+
+:minor-premise-description rdf:type owl:NamedIndividual ,
+                                    :Statement-Description ;
+                           
+                           :statementDescriptionText "P" .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#modus-ponens-conclusion-description
+
+:modus-ponens-conclusion-description rdf:type owl:NamedIndividual ,
+                                              :Statement-Description ;
+                                     
+                                     :statementDescriptionText "Q" .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#modus-ponens-scheme
+
+:modus-ponens-scheme rdf:type owl:NamedIndividual ,
+                              :Deductive-Inference-Scheme ;
+                     
+                     :hasConclusionDescription :modus-ponens-conclusion-description ;
+                     
+                     :hasPremiseDescription :major-premise-description ,
+                                            :minor-premise-description .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#negation-conflict-scheme
+
+:negation-conflict-scheme rdf:type owl:NamedIndividual ,
+                                   :Logical-Conflict-Scheme ;
+                          
+                          :hasConflictedElementDescription :positive-proposition-description ;
+                          
+                          :hasConflictingElementDescription :negative-proposition-description .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#negative-proposition-description
+
+:negative-proposition-description rdf:type owl:NamedIndividual ,
+                                           :Statement-Description ;
+                                  
+                                  :statementDescriptionText "not P" .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#popular-opinion-scheme
+
+:popular-opinion-scheme rdf:type owl:NamedIndividual ,
+                                 :Presumptive-Inference-Scheme ;
+                        
+                        :hasConclusionDescription :knowledge-position-description ;
+                        
+                        :hasExceptionDescription :general-acceptance-doubt-description ;
+                        
+                        :hasPremiseDescription :general-acceptance-description ;
+                        
+                        :hasPresumptionDescription :common-knowledge-back-up-description ,
+                                                   :presumption-of-general-acceptance-description .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#position-to-have-knowledge-description
+
+:position-to-have-knowledge-description rdf:type owl:NamedIndividual ,
+                                                 :Statement-Description ;
+                                        
+                                        :statementDescriptionText "E is in a position to know whether A is true or false." .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#position-to-know-lack-of-reliability-scheme
+
+:position-to-know-lack-of-reliability-scheme rdf:type owl:NamedIndividual ,
+                                                      :Exception-Conflict-Scheme ;
+                                             
+                                             :hasConflictedElementDescription :position-to-know-scheme ;
+                                             
+                                             :hasConflictingElementDescription :lack-of-reliability-description .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#position-to-know-scheme
+
+:position-to-know-scheme rdf:type owl:NamedIndividual ,
+                                  :Presumptive-Inference-Scheme ;
+                         
+                         :hasConclusionDescription :knowledge-position-description ;
+                         
+                         :hasExceptionDescription :lack-of-reliability-description ;
+                         
+                         :hasPremiseDescription :knowledge-assertion-description ,
+                                                :position-to-have-knowledge-description .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#positive-proposition-description
+
+:positive-proposition-description rdf:type owl:NamedIndividual ,
+                                           :Statement-Description ;
+                                  
+                                  :statementDescriptionText "P" .
+
+
+
+###  uu:dialoguebuilder/nlpmodule/aif#presumption-of-general-acceptance-description
+
+:presumption-of-general-acceptance-description rdf:type owl:NamedIndividual ,
+                                                        :Statement-Description ;
+                                               
+                                               :statementDescriptionText "If A is generally accepted as true, then there exists a reason in favour of A." .
+
+
+
+
+###  Generated by the OWL API (version 4.2.3.20160319-0906) https://github.com/owlcs/owlapi
+
