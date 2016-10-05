@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import java.util.UUID; 
 
 import org.json.JSONObject;
 
@@ -28,19 +28,19 @@ import oo2apl.agent.Context;
 public final class AIFContext implements Context {
 	private final FusekiContext fuseki;
 	private final ToastContext toast;
-	private final String pathToAIFFilesDirectory;
-	private Map<String, UUID> argumentationTheories;
-	private final String selectPremisesQuery, selectStrictRulesQuery, selectDefeasibleRulesQuery, selectContrarinessQuery;
+	private final String pathToAIFFilesDirectory; 
+	private final String selectPremisesQuery, selectStrictRulesQuery, selectDefeasibleRulesQuery, selectContrarinessQuery,
+						 clearPositionQuery;
 
 	public AIFContext(final FusekiContext fuseki, final ToastContext toast, final String pathToAIFFilesDirectory){
 		this.fuseki = fuseki;
 		this.toast = toast;
-		this.pathToAIFFilesDirectory = pathToAIFFilesDirectory;
-		this.argumentationTheories = new HashMap<>(); 
+		this.pathToAIFFilesDirectory = pathToAIFFilesDirectory; 
 		this.selectPremisesQuery = readFile(pathToAIFFilesDirectory+"selectPremises.sparql");
 		this.selectStrictRulesQuery = readFile(pathToAIFFilesDirectory+"selectStrictRules.sparql");
 		this.selectDefeasibleRulesQuery = readFile(pathToAIFFilesDirectory+"selectDefeasibleRules.sparql");
 		this.selectContrarinessQuery = readFile(pathToAIFFilesDirectory+"selectContrarinessRules.sparql"); 
+		this.clearPositionQuery = readFile(pathToAIFFilesDirectory+"clearPosition.sparql"); 
 	}
 
 	/**
@@ -71,17 +71,36 @@ public final class AIFContext implements Context {
 			Thread.sleep(10000);
 
 			// Load the initial arguments
-			if(initialArguments.length > 0){
-				StringBuffer update = new StringBuffer("INSERT DATA {\r\n");
-				Arrays.asList(initialArguments).forEach((AIFArgumentBuilder argument) -> {update.append(argument.getAIFTriples().toString());});  
-				this.fuseki.update(name, update.append("\r\n}\r\n").toString()); 
-			}
-
-			// Create a new argumentation theory
-			this.argumentationTheories.put(name, this.toast.newArgumentationTheory());
+			addArgumentsToPosition(name, initialArguments);
 		} catch (IOException e) { 
 			e.printStackTrace();
 		} catch (InterruptedException e) { 
+			e.printStackTrace();
+		}
+	}
+	
+	/** Add arguments to an existing position; note that this requires that the position is hosted on fuseki. */
+	public final void addArgumentsToPosition(final String name, final AIFArgumentBuilder... arguments){ 
+		// TODO: check if name is an existing dataset in fuseki
+		// TODO: check if fuseki is runnings
+		try {
+			this.fuseki.useRDFBase(name, "PREFIX aif: <uu:dialoguebuilder/nlpmodule/aif#>\r\n");
+			// Add the arguments
+			if(arguments.length > 0){
+				StringBuffer update = new StringBuffer("INSERT DATA {\r\n");
+				Arrays.asList(arguments).forEach((AIFArgumentBuilder argument) -> {update.append(argument.getAIFTriples().toString());});   
+				this.fuseki.update(name, update.append("\r\n}\r\n").toString()); 
+			} 
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	/** Clear a position by removing all the arguments. This is faster than making a new position, since that requires a reboot of fuseki. */
+	public final void clearPosition(final String name){
+		try {
+			this.fuseki.update(name, this.clearPositionQuery);
+		} catch (IOException e) { 
 			e.printStackTrace();
 		}
 	}
