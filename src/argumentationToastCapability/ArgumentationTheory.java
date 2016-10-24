@@ -30,9 +30,9 @@ public final class ArgumentationTheory {
 	private static enum LinkPreference {LAST, WEAKEST};
 	private static enum Semantics {GROUNDED, PREFERRED, SEMI_STABLE, STABLE};
 	/** The result of the last TOAST call  */
-	private JSONObject toastResponse;
+	private JSONObject toastResponse = new JSONObject("{\"result\":\"failed\"}");
 	/** Whether the theory was updated since the last TOAST call */
-	private boolean upToDate = false;
+	private boolean upToDate = true;
 	/** URL of TOAST */
 	private final String toastWebInterface; 
 	// All the different storages
@@ -100,7 +100,7 @@ public final class ArgumentationTheory {
 						result.append(line + "\n");  
 					}
 					br.close();  
-					this.toastResponse = new JSONObject(result.toString());
+					this.toastResponse = new JSONObject(result.toString()); 
 				} else {
 					// TODO: thow exception 
 					System.out.println("Cannot evaluate with TOAST. ");
